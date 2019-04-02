@@ -1,12 +1,19 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const search = require('youtube-search')
+const Router = require('koa2-router')
+const argv = require('yargs').argv
+const stringify = require('safe-json-stringify')
 
+const router = new Router()
 const app = new Koa()
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
+
+const key = argv.key
 
 async function start () {
   // Instantiate nuxt.js
@@ -25,11 +32,47 @@ async function start () {
     await nuxt.ready()
   }
 
-  app.use((ctx) => {
-    ctx.status = 200
-    ctx.respond = false // Bypass Koa's built-in response handling
-    ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
-    nuxt.render(ctx.req, ctx.res)
+  const doSearch = (keyword, sort, pageToken) => {
+    return new Promise((resolve, reject) => {
+      const opts = {
+        key: key,
+        order: sort,
+        pageToken: pageToken,
+        maxResults: 5
+      }
+
+      search(keyword, opts, (err, results, pageInfo) => {
+        if (err) {
+          reject(err)
+        }
+        resolve({ pageInfo: pageInfo, results: results })
+      })
+    })
+  }
+
+  router.get('/api/search', async (ctx, next) => {
+    try {
+      const result = await doSearch(ctx.query.keyword, ctx.query.sort, ctx.query.pageToken)
+      ctx.type = 'json'
+      ctx.status = 200
+      ctx.body = stringify(result)
+    } catch (err) {
+      ctx.body = stringify(err)
+      ctx.status = 500
+    }
+    await next()
+  })
+
+  app.use(router)
+
+  app.use(async (ctx, next) => {
+    if (ctx.path.startsWith('/api') === false) {
+      ctx.status = 200
+      ctx.respond = false // Bypass Koa's built-in response handling
+      ctx.req.ctx = ctx // This might be useful later on, e.g. in nuxtServerInit or with nuxt-stash
+      nuxt.render(ctx.req, ctx.res)
+    }
+    await next()
   })
 
   app.listen(port, host)

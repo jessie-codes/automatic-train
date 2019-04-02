@@ -14,12 +14,17 @@
     "test": "ava"
   },
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "nuxt": "^2.4.0",
-    "koa": "^2.6.2",
-    "@nuxtjs/bulma": "^1.2.1",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^2.6.0"
+    "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/pwa": "^2.6.0",
+    "cross-env": "^5.2.0",
+    "koa": "^2.6.2",
+    "koa2-router": "^1.1.2",
+    "npm": "^6.9.0",
+    "nuxt": "^2.4.0",
+    "safe-json-stringify": "^1.2.0",
+    "yargs": "^13.2.2",
+    "youtube-search": "^1.1.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",

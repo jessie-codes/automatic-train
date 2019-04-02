@@ -1,68 +1,44 @@
 <template>
-  <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        automatic-train
-      </h1>
-      <h2 class="subtitle">
-        My great Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
-    </div>
-  </section>
+  <main class="container">
+    <results />
+    <button v-if="prevPageToken" class="button" @click.stop.prevent="prev">
+      Prev
+    </button>
+    <button v-if="nextPageToken" class="button is-primary is-pulled-right" @click.stop.prevent="next">
+      Next
+    </button>
+  </main>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import axios from 'axios'
+import Results from '~/components/results.vue'
 
 export default {
   components: {
-    Logo
+    Results
+  },
+  computed: {
+    prevPageToken () { return this.$store.state.prevPageToken },
+    nextPageToken () { return this.$store.state.nextPageToken },
+    keyword () { return this.$store.state.searchedKeyword },
+    sort () { return this.$store.state.searchedSort }
+  },
+  methods: {
+    prev () {
+      this.getPage(this.keyword, this.sort, this.prevPageToken)
+    },
+    next () {
+      this.getPage(this.keyword, this.sort, this.nextPageToken)
+    },
+    getPage (keyword, sort, pageToken) {
+      axios.get(`/api/search?keyword=${keyword}&sort=${sort}&pageToken=${pageToken}`)
+        .then((searchResults) => {
+          this.$store.commit('setData', searchResults.data)
+        }).catch(() => {
+          alert('Server Error: Error during search.')
+        })
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
