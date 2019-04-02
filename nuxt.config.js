@@ -27,18 +27,6 @@ module.exports = {
   loading: { color: '#fff' },
 
   /*
-  ** Global CSS
-  */
-  css: [
-  ],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-  ],
-
-  /*
   ** Nuxt.js modules
   */
   modules: [
@@ -48,12 +36,6 @@ module.exports = {
     '@nuxtjs/bulma',
     '@nuxtjs/pwa'
   ],
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   /*
   ** Build configuration
