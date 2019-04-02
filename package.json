@@ -22,6 +22,7 @@
     "koa2-router": "^1.1.2",
     "npm": "^6.9.0",
     "nuxt": "^2.4.0",
+    "querystring": "^0.2.0",
     "safe-json-stringify": "^1.2.0",
     "yargs": "^13.2.2",
     "youtube-search": "^1.1.4"

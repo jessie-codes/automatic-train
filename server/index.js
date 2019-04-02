@@ -6,11 +6,12 @@ const Router = require('koa2-router')
 const argv = require('yargs').argv
 const stringify = require('safe-json-stringify')
 
+const config = require('../nuxt.config.js')
+const video = require('./video')
+
 const router = new Router()
 const app = new Koa()
 
-// Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
 
 const key = argv.key
@@ -45,7 +46,24 @@ async function start () {
         if (err) {
           reject(err)
         }
-        resolve({ pageInfo: pageInfo, results: results })
+        const ids = results.map((item) => {
+          return item.id
+        })
+
+        video(ids.join(','), opts, (err, stats) => {
+          if (err) {
+            reject(err)
+          }
+
+          for (const s in stats) {
+            for (const r in results) {
+              if (stats[s].id === results[r].id) {
+                results[r].statistics = stats[s].statistics
+              }
+            }
+          }
+          resolve({ pageInfo: pageInfo, results: results })
+        })
       })
     })
   }

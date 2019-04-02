@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <div v-for="rows in results" :key="rows" class="columns">
+    <div class="columns">
       <div
-        v-for="r in rows"
+        v-for="r in results"
         :key="r.id"
         class="column is-one-fifth"
       >
@@ -19,7 +19,7 @@
             <div class="content">
               <p> {{ r.description }}</p>
               <p class="comments">
-                {{ r.comments }} Comments
+                Comments: {{ r.statistics.commentCount }}
               </p>
             </div>
           </section>

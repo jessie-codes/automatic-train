@@ -5,10 +5,8 @@ export const state = () => ({
   searchedSort: '',
   nextPageToken: '',
   prevPageToken: '',
-  results: [[]]
+  results: []
 })
-
-const columns = 5
 
 export const mutations = {
   setKeyword (state, keyword) {
@@ -24,11 +22,6 @@ export const mutations = {
   setData (state, data) {
     state.nextPageToken = data.pageInfo.nextPageToken
     state.prevPageToken = data.pageInfo.prevPageToken
-
-    const results = []
-    while (data.results.length > 0) {
-      results.push(data.results.splice(0, columns))
-    }
-    state.results = results
+    state.results = data.results
   }
 }
