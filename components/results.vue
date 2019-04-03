@@ -18,8 +18,11 @@
             </div>
             <div class="content">
               <p> {{ r.description }}</p>
-              <p class="comments">
+              <p v-if="r.statistics" class="comments">
                 Comments: {{ r.statistics.commentCount }}
+              </p>
+              <p v-else class="comments">
+                Comments: unavailable
               </p>
             </div>
           </section>

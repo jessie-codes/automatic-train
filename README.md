@@ -2,7 +2,9 @@
 
 > My great Nuxt.js project
 
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.org/jessie-codes/automatic-train.svg?branch=master)](https://travis-ci.org/jessie-codes/automatic-train)
+[![Coverage Status](https://coveralls.io/repos/github/jessie-codes/automatic-train/badge.svg?branch=master)](https://coveralls.io/github/jessie-codes/automatic-train?branch=master)
 
 ## Build Setup
 
