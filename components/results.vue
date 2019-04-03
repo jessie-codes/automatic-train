@@ -7,8 +7,10 @@
         class="column is-one-fifth"
       >
         <div class="card">
-          <section class="card-image">
-            <img :src="r.thumbnails.high.url" :alt="r.title">
+          <section v-if="r.thumbnails" class="card-image">
+            <img v-if="r.thumbnails.high" :src="r.thumbnails.high.url" :alt="r.title">
+            <img v-else-if="r.thumbnails.medium" :src="r.thumbnails.medium.url" :alt="r.title">
+            <img v-else-if="r.thumbnails.default" :src="r.thumbnails.default.url" :alt="r.title">
           </section>
           <section class="card-content">
             <div class="media">

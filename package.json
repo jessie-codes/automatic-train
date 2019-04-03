@@ -49,5 +49,18 @@
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^0.1.1",
     "require-extension-hooks-vue": "^2.0.0"
+  },
+  "nyc": {
+    "exclude": [
+      "test",
+      ".eslintrc.js",
+      "nuxt.config.js",
+      "ava.config.js",
+      ".eslintrc.js"
+    ],
+    "extension": [
+      ".js",
+      ".vue"
+    ]
   }
 }
