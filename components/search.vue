@@ -44,7 +44,7 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <div class="control">
-              <button class="button is-warning" @click.stop.prevent="search">
+              <button class="button" @click.stop.prevent="search">
                 Search
               </button>
             </div>
@@ -100,5 +100,11 @@ export default {
 
 .navbar label {
     color: #fff;
+}
+
+.navbar button {
+  background-color: #E68200;
+  border-color: transparent;
+  color: rgba(0, 0, 0, 0.7);
 }
 </style>

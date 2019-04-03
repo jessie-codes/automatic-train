@@ -1,22 +1,27 @@
 <template>
-  <main class="container">
-    <results />
-    <button v-if="prevPageToken" class="button" @click.stop.prevent="prev">
-      Prev
-    </button>
-    <button v-if="nextPageToken" class="button is-primary is-pulled-right" @click.stop.prevent="next">
-      Next
-    </button>
-  </main>
+  <div>
+    <search />
+    <main class="container">
+      <results />
+      <button v-if="prevPageToken" class="button" @click.stop.prevent="prev">
+        Prev
+      </button>
+      <button v-if="nextPageToken" class="button is-primary is-pulled-right" @click.stop.prevent="next">
+        Next
+      </button>
+    </main>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Results from '~/components/results.vue'
+import Search from '~/components/Search.vue'
 
 export default {
   components: {
-    Results
+    Results,
+    Search
   },
   computed: {
     prevPageToken () { return this.$store.state.prevPageToken },

@@ -11,14 +11,11 @@
 $ npm install
 
 # serve with hot reload at localhost:3000
-$ npm run dev
+$ npm run dev -- --key {YOUTUBE_API_KEY}
 
 # build for production and launch server
 $ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
+$ npm start --key {YOUTUBE_API_KEY}
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
